@@ -5,8 +5,6 @@ import controller.Trainer;
 import model.Configuration;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Random;
 
 public class loader {
 
@@ -16,7 +14,7 @@ Configuration configuration = new Configuration();
         configuration.setBatchSize(18);
         configuration.setChannels(3);
         configuration.setEpochs(50);
-        configuration.setFilePath("C:\\Users\\okesa\\Documents\\Deep learning\\deeplearning4j\\findme\\data");
+        configuration.setFilePath("C:\\Users\\okesa\\Documents\\Deep learning\\deeplearning4j\\data");
         configuration.setHeight(100);
         configuration.setMaxNumberOfData(100);
         configuration.setNumberOfCores(8);
@@ -30,8 +28,10 @@ Configuration configuration = new Configuration();
             trainer.train();
             System.out.println(trainer.getModel().toString());
 
-            File file = new File("C:\\Users\\okesa\\Documents\\Deep learning\\deeplearning4j\\findme\\passport.png");
+            File file = new File("C:\\Users\\okesa\\Documents\\Deep learning\\deeplearning4j\\passport.png");
             System.out.println( Trainer.predict(trainer.getModel(), file));
+
+            trainer.saveModel("C:\\Users\\okesa\\Documents\\Deep learning\\deeplearning4j\\trained_model.zip");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7dc6443f-24ea-4960-bc83-81af9d69a8bf" name="Default" comment="" />
+    <list default="true" id="7dc6443f-24ea-4960-bc83-81af9d69a8bf" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/Trainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/Trainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/loader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/loader.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -13,7 +16,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="412">
@@ -26,11 +29,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="loader.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="loader.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/view/loader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-80">
-              <caret line="20" column="43" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+            <state relative-caret-position="102">
+              <caret line="35" column="108" selection-start-line="35" selection-start-column="108" selection-end-line="35" selection-end-column="108" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -41,8 +44,8 @@
       <file leaf-file-name="Trainer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/Trainer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="103">
-              <caret line="203" column="57" selection-start-line="203" selection-start-column="57" selection-end-line="203" selection-end-column="57" />
+            <state relative-caret-position="-1088">
+              <caret line="136" selection-start-line="136" selection-end-line="136" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1673#1674#0" expanded="true" />
@@ -168,7 +171,11 @@
       <find>network</find>
       <find>DataSet</find>
       <find>2500</find>
+      <find>StaticLoggerBinder</find>
     </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -179,8 +186,8 @@
         <option value="$PROJECT_DIR$/src/main/java/model/Parameter.java" />
         <option value="$PROJECT_DIR$/src/main/java/model/Configuration.java" />
         <option value="$PROJECT_DIR$/src/main/java/model/TrainedModel.java" />
-        <option value="$PROJECT_DIR$/src/main/java/view/loader.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/Trainer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/view/loader.java" />
       </list>
     </option>
   </component>
@@ -190,6 +197,7 @@
     <option name="width" value="1346" />
     <option name="height" value="688" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <autoscrollFromSource ProjectPane="true" />
@@ -363,17 +371,18 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49924356" weight="0.32933104" />
-      <window_info anchor="bottom" id="Messages" sideWeight="0.49016643" weight="0.32761577" />
+      <window_info anchor="bottom" id="Messages" sideWeight="0.48865354" weight="0.32761577" />
       <window_info anchor="right" id="Palette&#9;" />
       <window_info id="Image Layers" />
       <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="bottom" id="Event Log" sideWeight="0.51134646" side_tool="true" visible="true" weight="0.432247" />
+      <window_info anchor="bottom" id="Event Log" sideWeight="0.5128593" side_tool="true" visible="true" weight="0.432247" />
       <window_info anchor="right" id="Maven Projects" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.48865354" visible="true" weight="0.432247" />
-      <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4871407" visible="true" weight="0.432247" />
+      <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Terminal" />
       <window_info id="Capture Tool" />
       <window_info id="Designer" />
@@ -525,20 +534,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/view/loader.java">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-80">
-          <caret line="20" column="43" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+        <state relative-caret-position="412">
+          <caret line="84" column="28" lean-forward="true" selection-start-line="84" selection-start-column="28" selection-end-line="84" selection-end-column="28" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="n#dependencyManagement#0;n#project#0;n#!!top" />
+            <element signature="n#dependencies#0;n#project#0;n#!!top" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/Trainer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="203" column="57" selection-start-line="203" selection-start-column="57" selection-end-line="203" selection-end-column="57" />
+        <state relative-caret-position="-1088">
+          <caret line="136" selection-start-line="136" selection-end-line="136" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1673#1674#0" expanded="true" />
@@ -549,13 +559,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/view/loader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="84" column="28" lean-forward="true" selection-start-line="84" selection-start-column="28" selection-end-line="84" selection-end-column="28" />
+        <state relative-caret-position="102">
+          <caret line="35" column="108" selection-start-line="35" selection-start-column="108" selection-end-line="35" selection-end-column="108" />
           <folding>
-            <element signature="n#dependencyManagement#0;n#project#0;n#!!top" />
-            <element signature="n#dependencies#0;n#project#0;n#!!top" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -85,8 +85,8 @@ private MultiLayerNetwork network;
                 // split data into training and test data
                 log.info("split data into training and test data");
 
-                FileSplit fileSplit = new FileSplit(data, new String[] {"jpg","png"}, random);
-                RandomPathFilter pathFilter = new RandomPathFilter(random, new String[]{"jpg","png"}, parameter.getMaxNumberOfData());
+                FileSplit fileSplit = new FileSplit(data, new String[] {"jpg","jpeg","png"}, random);
+                RandomPathFilter pathFilter = new RandomPathFilter(random, new String[]{"jpg","jpeg","png"}, parameter.getMaxNumberOfData());
                 InputSplit[] inputSplits = fileSplit.sample(pathFilter, 0.8, 0.2);
                 InputSplit trainData = inputSplits[0];
                 InputSplit testData = inputSplits[1];
