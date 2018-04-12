@@ -42,10 +42,31 @@ import java.util.Random;
 public class Trainer {
 
     private Configuration parameter;
-    private Logger log;
+    private static Logger log = LoggerFactory.getLogger(Trainer.class);
     private long startTime;
     private long endTime;
-private MultiLayerNetwork network;
+    private MultiLayerNetwork network;
+    private TrainedModel model;
+
+    public Trainer(Configuration params) {
+        parameter = params;
+
+        model = new TrainedModel();
+    }
+
+    /**
+     * Predicts a label using a trained network
+     *
+     * @param model
+     * @param imageFile
+     * @return
+     * @throws Exception
+     */
+    public static INDArray predict(TrainedModel model, File imageFile) throws Exception {
+        NativeImageLoader imageLoader = new NativeImageLoader(model.getConfiguration().getHeight(), model.getConfiguration().getWidth(), model.getConfiguration().getChannels());
+        INDArray image = imageLoader.asMatrix(imageFile);
+        return model.getNetwork().output(image);
+    }
 
     public TrainedModel getModel() {
         return model;
@@ -55,25 +76,17 @@ private MultiLayerNetwork network;
         this.model = model;
     }
 
-    private TrainedModel model;
-
-    public Trainer(Configuration params){
-        parameter = params;
-        log  = LoggerFactory.getLogger(Trainer.class);
-        model = new TrainedModel();
-    }
-
     /**
-     *
      * Trains a network using convolution neural network
+     *
      * @return TrainedModel
      * @throws IOException
      */
     public TrainedModel train() throws IOException {
 
         // check if file path is not null
-        if(parameter != null){
-            if(parameter.getFilePath() != null){
+        if (parameter != null) {
+            if (parameter.getFilePath() != null) {
                 // get data file
                 File data = new File(parameter.getFilePath());
                 Random random = new Random(parameter.getSeed());
@@ -85,21 +98,21 @@ private MultiLayerNetwork network;
                 // split data into training and test data
                 log.info("split data into training and test data");
 
-                FileSplit fileSplit = new FileSplit(data, new String[] {"jpg","jpeg","png"}, random);
-                RandomPathFilter pathFilter = new RandomPathFilter(random, new String[]{"jpg","jpeg","png"}, parameter.getMaxNumberOfData());
+                FileSplit fileSplit = new FileSplit(data, new String[]{"jpg", "jpeg", "png"}, random);
+                RandomPathFilter pathFilter = new RandomPathFilter(random, new String[]{"jpg", "jpeg", "png"}, parameter.getMaxNumberOfData());
                 InputSplit[] inputSplits = fileSplit.sample(pathFilter, 0.8, 0.2);
                 InputSplit trainData = inputSplits[0];
                 InputSplit testData = inputSplits[1];
 
-                ImageRecordReader recordReader = new ImageRecordReader(parameter.getHeight(),parameter.getWidth(),parameter.getChannels(), labelMaker);
-recordReader.initialize(trainData);
+                ImageRecordReader recordReader = new ImageRecordReader(parameter.getHeight(), parameter.getWidth(), parameter.getChannels(), labelMaker);
+                recordReader.initialize(trainData);
                 List<String> labelNames = recordReader.getLabels();
 
-                DataSetIterator dataSetIterator = new RecordReaderDataSetIterator(recordReader, parameter.getBatchSize(),1, parameter.getNumberOfLabels());
+                DataSetIterator dataSetIterator = new RecordReaderDataSetIterator(recordReader, parameter.getBatchSize(), 1, parameter.getNumberOfLabels());
 
                 // scale pixel values to 0 - 1
                 log.info("scale pixel values to 0 - 1");
-                DataNormalization scaler = new ImagePreProcessingScaler(0,1);
+                DataNormalization scaler = new ImagePreProcessingScaler(0, 1);
 
                 scaler.fit(dataSetIterator);
                 dataSetIterator.setPreProcessor(scaler);
@@ -118,10 +131,10 @@ recordReader.initialize(trainData);
                         .weightInit(WeightInit.XAVIER)
                         .updater(Updater.RMSPROP).momentum(0.9)
                         .list()
-                        .layer(0, convInit("cnn1", parameter.getChannels(), 50 ,  new int[]{5, 5}, new int[]{1, 1}, new int[]{0, 0}, 0))
-                        .layer(1, maxPool("maxpool1", new int[]{2,2}))
+                        .layer(0, convInit("cnn1", parameter.getChannels(), 50, new int[]{5, 5}, new int[]{1, 1}, new int[]{0, 0}, 0))
+                        .layer(1, maxPool("maxpool1", new int[]{2, 2}))
                         .layer(2, conv5x5("cnn2", 100, new int[]{5, 5}, new int[]{1, 1}, 0))
-                        .layer(3, maxPool("maxool2", new int[]{2,2}))
+                        .layer(3, maxPool("maxool2", new int[]{2, 2}))
                         .layer(4, new DenseLayer.Builder()
                                 .nOut(500)
                                 .build())
@@ -133,9 +146,9 @@ recordReader.initialize(trainData);
                         .setInputType(InputType.convolutional(parameter.getHeight(), parameter.getWidth(), parameter.getChannels()))
                         .build();
 
-                network =  new MultiLayerNetwork(conf);
-                MultipleEpochsIterator iterator  = new MultipleEpochsIterator(parameter.getEpochs(), dataSetIterator, parameter.getNumberOfCores());
-                network.setListeners(new ScoreIterationListener(10));
+                network = new MultiLayerNetwork(conf);
+                MultipleEpochsIterator iterator = new MultipleEpochsIterator(parameter.getEpochs(), dataSetIterator, parameter.getNumberOfCores());
+                network.setListeners(new ScoreIterationListener(1));
                 // measure time taken to train network
                 startTime = System.currentTimeMillis();
                 network.fit(iterator);
@@ -146,7 +159,7 @@ recordReader.initialize(trainData);
                 // evaluate model
                 log.info("evaluate model");
                 recordReader.initialize(testData);
-                dataSetIterator = new RecordReaderDataSetIterator(recordReader,parameter.getBatchSize(),1, parameter.getNumberOfLabels());
+                dataSetIterator = new RecordReaderDataSetIterator(recordReader, parameter.getBatchSize(), 1, parameter.getNumberOfLabels());
                 scaler.fit(dataSetIterator);
                 dataSetIterator.setPreProcessor(scaler);
 
@@ -166,42 +179,31 @@ recordReader.initialize(trainData);
 
                 return model;
 
-            }else{
+            } else {
                 log.error("File path was not specified. ");
             }
         }
         return null;
     }
+
     private ConvolutionLayer convInit(String name, int in, int out, int[] kernel, int[] stride, int[] pad, double bias) {
         return new ConvolutionLayer.Builder(kernel, stride, pad).name(name).nIn(in).nOut(out).biasInit(bias).build();
     }
 
     private ConvolutionLayer conv5x5(String name, int out, int[] stride, int[] pad, double bias) {
-        return new ConvolutionLayer.Builder(new int[]{5,5}, stride, pad).name(name).nOut(out).biasInit(bias).build();
+        return new ConvolutionLayer.Builder(new int[]{5, 5}, stride, pad).name(name).nOut(out).biasInit(bias).build();
     }
 
     private SubsamplingLayer maxPool(String name, int[] kernel) {
-        return new SubsamplingLayer.Builder(kernel, new int[]{2,2}).name(name).build();
-    }
-
-    /**
-     * Predicts a label using a trained network
-     * @param model
-     * @param imageFile
-     * @return
-     * @throws Exception
-     */
-    public static INDArray predict(TrainedModel model, File imageFile) throws Exception {
-        NativeImageLoader imageLoader = new NativeImageLoader(model.getConfiguration().getHeight(), model.getConfiguration().getWidth(), model.getConfiguration().getChannels());
-        INDArray image = imageLoader.asMatrix(imageFile);
-        return model.getNetwork().output(image);
+        return new SubsamplingLayer.Builder(kernel, new int[]{2, 2}).name(name).build();
     }
 
     /**
      * Saves the model to the specified path.
+     *
      * @param path
      */
-    public void saveModel(String path) throws IOException{
+    public void saveModel(String path) throws IOException {
         File file = new File(path);
 
         // ModelSerializer needs modelname, saveUpdater, Location

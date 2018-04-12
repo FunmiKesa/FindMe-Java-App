@@ -8,9 +8,9 @@ import java.io.File;
 
 public class loader {
 
-    public static void main(String args[]){
+    public static void main(String args[]) {
         // train model
-Configuration configuration = new Configuration();
+        Configuration configuration = new Configuration();
         configuration.setBatchSize(18);
         configuration.setChannels(3);
         configuration.setEpochs(50);
@@ -28,8 +28,11 @@ Configuration configuration = new Configuration();
             trainer.train();
             System.out.println(trainer.getModel().toString());
 
-            File file = new File("C:\\Users\\okesa\\Documents\\Deep learning\\deeplearning4j\\passport.png");
-            System.out.println( Trainer.predict(trainer.getModel(), file));
+            File file = new File("C:\\Users\\okesa\\Documents\\Deep learning\\deeplearning4j\\pencil.png");
+            System.out.println(Trainer.predict(trainer.getModel(), file));
+
+            file = new File("C:\\Users\\okesa\\Documents\\Deep learning\\deeplearning4j\\pencil.png");
+            System.out.println(Trainer.predict(trainer.getModel(), file));
 
             trainer.saveModel("C:\\Users\\okesa\\Documents\\Deep learning\\deeplearning4j\\trained_model.zip");
         } catch (Exception e) {
